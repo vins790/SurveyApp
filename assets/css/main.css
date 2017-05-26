@@ -122,13 +122,13 @@ input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-i
     color: #DDD;
 }
 
-button {
+button, button#delete, button#add {
     background-color: rgba(150,150,150,0.5); 
     border-color: white;
     color: white;
 }
 
-div[id='createSurvey'] {
+div[id='sendResult'], div[id='createSurvey']  {
     align-self: flex-end;
     background-color: rgba(150,150,150,0.5);
     color: white;
@@ -212,4 +212,24 @@ tbody[id="surveyList"] > tr {
 .scrollbar {
     height: 60vh;
     overflow-y: scroll;
+}
+
+.ui-dialog-titlebar-close {
+    visibility: hidden;
+}
+
+.ui-widget-header {
+    background: #AAAAAA;
+}
+
+.ui-widget.ui-widget-content, .ui-widget.ui-widget-content {
+    background: #CCCCCC;
+}
+
+.ui-widget-content {
+    background: #CCCCCC;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+  background: #AAAAAA;
 }

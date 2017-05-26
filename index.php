@@ -7,17 +7,19 @@
     <title>SurveyApp</title>
 
     <!-- Latest compiled and minified CSS -->
-      <link rel="stylesheet" href="assets/css/main.css" />
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
       <link href='http://fonts.googleapis.com/css?family=Armata&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
       <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="assets/css/main.css" />
 
   </head>
   
     
     
 <body>
+    
 
 <div class="container">
         
@@ -84,42 +86,7 @@
                     <strong>
                     <table class="table-responsive">
                         <tbody id="surveyList">
-                            <tr><td>Ankieta1</td></tr>
-                            <tr><td>Ankieta2</td></tr>
-                            <tr><td>Ankieta3</td></tr>
-                            <tr><td>Ankieta4</td></tr>
-                            <tr><td>Ankieta5</td></tr>
-                            <tr><td>Ankieta6</td></tr>
-                            <tr><td>Ankieta7</td></tr>
-                            <tr><td>Ankieta8</td></tr>
-                            <tr><td>Ankieta9</td></tr>
-                            <tr><td>Ankieta1</td></tr>
-                            <tr><td>Ankieta2</td></tr>
-                            <tr><td>Ankieta3</td></tr>
-                            <tr><td>Ankieta4</td></tr>
-                            <tr><td>Ankieta5</td></tr>
-                            <tr><td>Ankieta6</td></tr>
-                            <tr><td>Ankieta7</td></tr>
-                            <tr><td>Ankieta8</td></tr>
-                            <tr><td>Ankieta9</td></tr>
-                            <tr><td>Ankieta1</td></tr>
-                            <tr><td>Ankieta2</td></tr>
-                            <tr><td>Ankieta3</td></tr>
-                            <tr><td>Ankieta4</td></tr>
-                            <tr><td>Ankieta5</td></tr>
-                            <tr><td>Ankieta6</td></tr>
-                            <tr><td>Ankieta7</td></tr>
-                            <tr><td>Ankieta8</td></tr>
-                            <tr><td>Ankieta9</td></tr>
-                            <tr><td>Ankieta1</td></tr>
-                            <tr><td>Ankieta2</td></tr>
-                            <tr><td>Ankieta3</td></tr>
-                            <tr><td>Ankieta4</td></tr>
-                            <tr><td>Ankieta5</td></tr>
-                            <tr><td>Ankieta6</td></tr>
-                            <tr><td>Ankieta7</td></tr>
-                            <tr><td>Ankieta8</td></tr>
-                            <tr><td>Ankieta9</td></tr>
+                            
                         </tbody>    
                     </table>
                     </strong>
@@ -137,38 +104,19 @@
         <div class="col-xs-1 col-sm-1 col-md-1"></div>
         
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="col-xs-10 col-sm-10 col-md-10">
-                <h3>Pytanie 1</h3>
-                <form id="1">
-                    Wybież jendą z poniższych odpowiedzi :<br>
-	                <br><input type="radio" name="nazwa" value="wartość" />Odpowiedz a
-                    <br><input type="radio" name="nazwa" value="wartość" />Odpowiedz b
-                    <br><input type="radio" name="nazwa" value="wartość" />Odpowiedz c
-                    <br><input type="radio" name="nazwa" value="wartość" />Odpowiedz d
-                </form>
+            <div class="col-xs-10 col-sm-10 col-md-10" id="SurveyForm">
             </div>
             
             <div class="col-xs-2 col-sm-2 col-md-2">
     <strong>
-    <table id="questions">
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">1</i></span></td></tr>
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">2</i></span></td></tr>
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">3</i></span></td></tr>
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">4</i></span></td></tr>
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">5</i></span></td></tr>
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">6</i></span></td></tr>
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">7</i></span></td></tr>
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">8</i></span></td></tr>
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">9</i></span></td></tr>
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">10</i></span></td></tr>
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">11</i></span></td></tr>
-    <tr><td><span class="fa-stack fa-sm"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-stack-1x ">12</i>
-    </span></td></tr>
+    <table id="spQuestionsList">
+    
     </table>
     </strong>
             </div>
-        </div>
-    </div>        
+           <div class="col-xs-12 col-sm-12 col-md-12" id="sendResult" >Zatwierdź</div>
+        </div> 
+    </div>
     <div id="surveyCreator" class="col-xs-12 col-sm-12 col-md-12">
         <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
         <div class="col-xs-1 col-xs-offset-11 col-sm-1 col-sm-offset-11 col-md-1 col-md-offset-11">
@@ -180,6 +128,8 @@
         
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="col-xs-10 col-sm-10 col-md-10">
+            <input type='text' maxlength='255' placeholder='Wpisz tytuł ankiety.' name="surveyTitle">
+            <input type='text' maxlength='255' placeholder='Wpisz krótki opis tematu ankiety.' name="surveyDescription">
             <div class="col-xs-12 col-sm-12 col-md-12" id="newQuestion">
 
 	           
@@ -213,6 +163,10 @@
                     <p1></p1>Dodaj ankietę</h3>
                 <h3 id="toUsers"><i class="fa fa-users" aria-hidden="true"></i>
                     <p1></p1>Użytkownicy</h3>
+                <h3 id="toSurveyManagement"><i class="fa fa-wrench" aria-hidden="true"></i>
+                    <p1></p1>Zarządzaj ankietami</h3>
+                <h3 id="toSurveyCreator"><i class="fa fa-bar-chart" aria-hidden="true"></i>
+                    <p1></p1>Wizualizacje</h3>
 
             </div>
 
@@ -257,13 +211,13 @@
                                         <table class="table table-hover">
                                             <tbody id="users-table">
                                                 <tr>
-                                                    <td>1</td>
+                                                    <td>1</td><td>User1</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>2</td>
+                                                    <td>2</td><td>User2</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>3</td>
+                                                    <td>3</td><td>User3</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -276,11 +230,11 @@
                                     <table class="table">
                                         <tr>
                                             <td>Login: </td>
-                                            <td>Maciek</td>
+                                            <td>User1</td>
                                         </tr>
                                         <tr>
                                             <td>Hasło: </td>
-                                            <td>Kozaczek123</td>
+                                            <td>password1</td>
                                         </tr>
                                     </table>
 
@@ -321,7 +275,27 @@
             </div>
 
         </div>
-    
+    <div id="surveyManagementPanel">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
+        <div class="col-xs-1 col-xs-offset-11 col-sm-1 col-sm-offset-11 col-md-1 col-md-offset-11">
+            <i class="fa fa-arrow-circle-left fa-3x" aria-hidden="true" id="back6"></i>
+        </div>
+        <h1><strong>Zarzadzanie ankietami</strong></h1>
+        </div>
+        <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
+            <div class="scrollbar col-xs-12 col-sm-12 col-md-12" id="scroll-style">
+                <div class="force-overflow col-xs-12 col-sm-12 col-md-12">
+                    <strong>
+                    <table class="table-responsive">
+                        <tbody id="managementList">
+                            
+                        </tbody>    
+                    </table>
+                    </strong>
+                </div>
+            </div>
+        </div>
+    </div> 
     
     
     
@@ -331,7 +305,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script src="assets/js/functions.js"></script>    
+    <script src="assets/js/functions.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         
         $("input[id='userType']").bootstrapToggle({
@@ -345,19 +320,29 @@
         $("#surveySelectionPanel").hide();
         $("#surveyPanel").hide();
         $("#surveyCreator").hide();
+        $("#surveyManagementPanel").hide();
         $("#contener").hide().fadeToggle(1500);
                 
         $("#submitButton").click(function(){
             if($("input[id='userType']").prop('checked')){
                 go("loginPanel", "adminPanel");
             }else{
+                loadSurveyList("surveyList");
                 go("loginPanel", "surveySelectionPanel");
             }
             
         });
         
         $("#surveyList").delegate('tr', 'click', function(clicked){
+            var id = $("#" + clicked.currentTarget.getAttribute("id")).attr("id").substr(8);
+            getQuestions(id);
             go("surveySelectionPanel","surveyPanel");
+         });
+        
+        $("#managementList").delegate('tr', 'click', function(clicked){
+            var id = $("#" + clicked.currentTarget.getAttribute("id")).attr("id").substr(8);
+            var title = $("#" + clicked.currentTarget.getAttribute("id")).text();
+            surveyManagementBox(id, title);
          });
         
         $("#back1").click(function(){
@@ -365,6 +350,7 @@
         });
         
         $("#back2").click(function(){
+            loadSurveyList("surveyList");
             go("surveyPanel","surveySelectionPanel");
         });
         
@@ -375,15 +361,32 @@
         $("#back4").click(function(){
             go("adminPanel","loginPanel");
         });
-
         
         $("#back5").click(function(){
             go("Users","adminPanel");
         });
         
+        $("#back6").click(function(){
+            go("surveyManagementPanel","adminPanel");
+        });
+        
         $("#toSurveyCreator").click(function(){
             go("adminPanel","surveyCreator",function(){ return newQuestion("newQuestion",1);});
         });
+        
+         $("#toSurveyManagement").click(function(){
+            loadSurveyList("managementList");
+            go("adminPanel","surveyManagementPanel");
+        });
+        
+        $("#createSurvey").click(function(){
+            addSurveyToDB();
+        });
+        
+        $("#sendResult").click(function(){
+            getResault();
+        });
+        
         
         $("#toUsers").click(function(){
             go("adminPanel","Users");
@@ -403,14 +406,14 @@
         });
          
         
-        
-        
         $(document).on('click', "div[id^='q'] div[class='btn-group'] ul[class='dropdown-menu'] > li", function(clicked){
             var liClass = clicked.currentTarget.getAttribute('class');
             var n = this.textContent;
             var questionID = (this).parentElement.parentElement.parentElement.getAttribute("id")
-            var questionNumber = questionID.substr(questionID.length-1); 
-            setAmountOfAnswers(questionNumber,n);   
+            var length = questionID.length;
+            
+            if(length == 2) setAmountOfAnswers(questionID.substr(questionID.length-1),n);
+            if(length == 3) setAmountOfAnswers(questionID.substr(questionID.length-2),n); 
         });
         
         $(document).on('click', '#plus',function(){
@@ -421,17 +424,32 @@
         $("#newQuestions").delegate("tr", "click", function(clicked){
             
             var id = clicked.currentTarget.getAttribute("id");
-            showQuestion(id.substr(id.length - 1), document.getElementById("newQuestions").rows.length)  
+            if(id!="plus"){
+                var length = id.length;
+                if(length==3) showQuestion(id.substr(id.length - 1), document.getElementById("newQuestions").rows.length);
+                if(length==4) showQuestion(id.substr(id.length - 2), document.getElementById("newQuestions").rows.length);
+                    
+        
+            }
         });
         
         $(document).on("click", "div[id^='q'] h3 button[class*='delete']", function(clicked){
             
             var parentID= (clicked.currentTarget).parentElement.parentElement.getAttribute("id");
-            var removed = parentID.substr(parentID.length - 1);
+            var length = parentID.length;
             var n = document.getElementById("newQuestions").rows.length;
-            removeQuestion(removed,n);
+        
+            if(length==2) removeQuestion(parentID.substr(parentID.length - 1),n);
+            if(length==3) removeQuestion(parentID.substr(parentID.length - 2),n);
         });     
         
+        $("#spQuestionsList").delegate("tr", "click", function(clicked){
+            var id = clicked.currentTarget.getAttribute("id");
+            var length = id.length;
+            
+            if(length==5) showQuestion(id.substr(id.length - 1), document.getElementById("spQuestionsList").rows.length);
+            if(length==6) showQuestion(id.substr(id.length - 2), document.getElementById("spQuestionsList").rows.length);
+        });
         
     </script>    
         
