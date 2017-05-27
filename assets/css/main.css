@@ -17,6 +17,8 @@ body {
     padding-bottom: 15px;
 }
 
+
+
 @media screen and (min-height: 480px) {
 
     .container{
@@ -28,17 +30,42 @@ body {
     .container{
         height: 736px;
     }
+    
+    form {
+        font-size: medium;
+    }
+    
+    #questions {
+        font-size: medium;
+    }
 }
 
 @media screen and (min-height: 568px){
     .container{
         height: 568px;
     }
+    
+    form {
+        font-size: small;
+    }
+    
+    #questions {
+        font-size: small;
+    }
 }
+
 
 @media screen and (min-height: 1024px){
     .container{
         height: 1024px;
+    }
+    
+    form {
+        font-size: x-large;
+    }
+    
+    #questions {
+        font-size: x-large;
     }
 }
 
@@ -85,7 +112,71 @@ input {
     font-size-adjust: auto;
 }
 
-i:nth-of-type(2) {
+input[type="text"], input[type="password"] {
+    width: 100%;
+    color:white;
+    border-radius: 8px;
+    background-color: rgba(150, 150, 150, 0.5);
+}
+input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder {
+    color: #DDD;
+}
+
+button, button#delete, button#add {
+    background-color: rgba(150,150,150,0.5); 
+    border-color: white;
+    color: white;
+}
+
+div[id='sendResult'], div[id='createSurvey']  {
+    align-self: flex-end;
+    background-color: rgba(150,150,150,0.5);
+    color: white;
+    width: 100%;
+    height: 2em;
+    font-size: medium;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border-radius: 8px;
+}
+
+div[id='delDiv']{
+    object-position: right;
+}
+
+div[class='btn-group'] {
+    padding-top: 10px;
+}
+
+div[class='answers']{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+button[class*='dropdown-toggle'] {
+     background-color:rgba(150,150,150,0.5); 
+     border-color: white;
+}
+
+button[class*='dropdown-toggle']:hover {
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+ul[class="dropdown-menu"] {
+     background-color: rgba(150,150,150,0.5); 
+}
+
+ul[class="dropdown-menu"] > li {
+    background-color: rgba(150,150,150,0.5); 
+}
+
+ul[class="dropdown-menu"] > li:hover {
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+i:nth-of-type(2) strong {
+    text-shadow: none;
     color: black;
 }
 
@@ -121,4 +212,24 @@ tbody[id="surveyList"] > tr {
 .scrollbar {
     height: 60vh;
     overflow-y: scroll;
+}
+
+.ui-dialog-titlebar-close {
+    visibility: hidden;
+}
+
+.ui-widget-header {
+    background: #AAAAAA;
+}
+
+.ui-widget.ui-widget-content, .ui-widget.ui-widget-content {
+    background: #CCCCCC;
+}
+
+.ui-widget-content {
+    background: #CCCCCC;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+  background: #AAAAAA;
 }
