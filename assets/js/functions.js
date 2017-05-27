@@ -100,7 +100,9 @@ function addSurveyToDB(){
     
     var answersAmount = [];
     var questionAmount = $("#newQuestions tr:nth-last-child(2)").attr("id").substr(2);        //ilość pytań
-
+     
+    $('div[class="container"]').css("display", "none");
+    $("body").append('<div class="loader" height: "auto" width: 400></div>');
     
     var survey = [];
     survey[0] = [];
@@ -131,6 +133,7 @@ function addSurveyToDB(){
             data: {n:questionAmount , survey: JSONdata},
             dataType: "text",
             success: function(data){
+               $('div[class="loader"]').remove();
                confirmBox("Sukces","Ankieta dodana pomyślnie!");
             }
     });
@@ -213,6 +216,10 @@ function surveyManagementBox(id, title){
 }
 
 function loadSurveyList(divID){
+
+    $('div[class="container"]').css("display", "none");
+    $("body").append('<div class="loader" height: "auto" width: 400></div>');
+    
    $.ajax({
             url: "assets/php/loadSurveyList.php",
             data: "",
@@ -224,6 +231,8 @@ function loadSurveyList(divID){
                     items.push("<tr id='listElem" + value.id + "'><td><span>" + value.Tytul + "</span><td></tr>");
                 });
                 $("#"+divID).html(items);
+                $('div[class="loader"]').remove();
+                $('div[class="container"]').css("display", "block");
             }
    });
 };
@@ -232,6 +241,7 @@ function getAnswers(questions, surveyID){
    
     surveyPanelBubbles(questions.length);
     $("#SurveyForm").empty();
+    var len = questions.length;
     $.each(questions, function(id,question){
         $.ajax({
             type: "POST",
@@ -259,14 +269,23 @@ function getAnswers(questions, surveyID){
                 });
                 newQuestion+='</form></div>';
                 $("#SurveyForm").append(newQuestion);
+                if(id == len-1){
+                    $('div[class="loader"]').remove();
+                    $('div[class="container"]').css("display", "block");
+                }
             }
         });
     });
+    
 };
 
 
 
 function getQuestions(id){
+    
+    $('div[class="container"]').css("display", "none");
+    $("body").append('<div class="loader" height: "auto" width: 400></div>');
+    
     var questions= [];
     $.ajax({
             type: "POST",
