@@ -186,6 +186,8 @@ function surveyManagementBox(id, title){
                       width: 400,
                       buttons: {
                         "Usuń": function() {
+                          $('div[class="container"]').css("display", "none");
+                          $("body").append('<div class="loader" height: "auto" width: 400></div>');
                           $( this ).dialog( "close" );
                           $.ajax({
                             type: "POST",
@@ -193,6 +195,7 @@ function surveyManagementBox(id, title){
                             data: {id:id},
                             dataType: "text",
                             success: function(data){
+                                $('div[class="loader"]').remove();
                                 loadSurveyList("managementList");
                                 confirmBox("Sukces","Pomyślnie usunięto ankiete!");
                                 $('div[id="dialog"]').remove();
