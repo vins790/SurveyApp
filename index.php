@@ -206,19 +206,21 @@
                         <div class="col-md-8 col-md-offset-1 col-lg-12">
                             <div class="col-md-4 col-md-offset-2 col-lg-4 col-lg-offset-2">
                                 <h3>Użytkownicy</h3>
+                            <div class="form-group" class="col-md-12 col-lg-4 col-md-offset-2">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="inputSearch" placeholder="Podaj login">
+                                        <span class="input-group-btn">
+                                        <button id="search" type="button" class="btn btn-secondary search"><i class="fa fa-search" aria-hidden="true" id="userIcon"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6"></div>
+                            </div>
                                 <div class="scrollbar-usersTable" id="scroll-style">
                                     <div class="force-overflow">
                                         <table class="table table-hover">
                                             <tbody id="users-table">
-                                                <tr>
-                                                    <td>1</td><td>User1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td><td>User2</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td><td>User3</td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -226,17 +228,10 @@
                             </div>
                             <div id="dataTable" class="col-md-4 col-md-offset-1 col-lg-4">
                                 <h3>Dane</h3>
-                                <div class="col-md-12 col-lg-12">
-                                    <table class="table">
-                                        <tr>
-                                            <td>Login: </td>
-                                            <td>User1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hasło: </td>
-                                            <td>password1</td>
-                                        </tr>
-                                    </table>
+                        <ul class="list-group" id="userInfo">
+                            <li class="list-group-item" id="userLogin"><strong>Login : </strong><span></span></li>
+                            <li class="list-group-item" id="userPass"><strong>Hasło : </strong><span></span></li>
+                    </ul>
 
                                     <div class="delete">
                                         <button id="delete" type="button" class="btn btn-default btn-lg"><i class="fa fa-trash" aria-hidden="true"></i><span>  Usuń</span></button>
@@ -256,11 +251,11 @@
                                 <table class="table">
                                     <tr>
                                         <td>Login: </td>
-                                        <td><input type="text" maxlength="255" placeholder="Podaj Login" /></td>
+                                        <td><input id="loginAdd" type="text" maxlength="255" placeholder="Podaj Login" /></td>
                                     </tr>
                                     <tr>
                                         <td>Hasło: </td>
-                                        <td><input type="text" maxlength="255" placeholder="Podaj Hasło" /></td>
+                                        <td><input id="passAdd" type="text" maxlength="255" placeholder="Podaj Hasło" /></td>
                                     </tr>
                                 </table>
 
@@ -273,8 +268,6 @@
                 </div>
 
             </div>
-
-        </div>
     <div id="surveyManagementPanel">
         <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
         <div class="col-xs-1 col-xs-offset-11 col-sm-1 col-sm-offset-11 col-md-1 col-md-offset-11">
@@ -391,7 +384,7 @@
         $("#toUsers").click(function(){
             go("adminPanel","Users");
             
-            $(".usun").hide();
+                $(".usun").hide();
                 $(".dodaj").hide();
 
                 $(document).on('click', '#Dodawanie', function() {
@@ -402,6 +395,7 @@
                 $(document).on('click', '#Usuwanie', function() {
                     $(".usun").show();
                     $(".dodaj").hide();
+                    loadUsers();
                 });
         });
          
@@ -449,6 +443,42 @@
             
             if(length==5) showQuestion(id.substr(id.length - 1), document.getElementById("spQuestionsList").rows.length);
             if(length==6) showQuestion(id.substr(id.length - 2), document.getElementById("spQuestionsList").rows.length);
+        });
+        
+        $('button[class~="search"]').click(function() {
+            searchUsers();
+        });
+        
+        $('#inputSearch').keyup(function(e) {
+            if(e.keyCode == 13){
+            searchUsers();
+            }
+         });
+        
+        $("#users-table").delegate('tr', 'click', function(clicked) {
+            var userID = clicked.currentTarget.getAttribute("id");
+            userInfo(userID);
+
+        });
+        
+        $('#delete').click(function() {
+            if (!($('#userLogin').is(':empty'))) {
+                var a = document.getElementById("userLogin");
+                var Uname = userLogin.getAttribute("tag");
+                $('#userLogin').empty();
+                $('#userPass').empty();
+                deleteUser(Uname);
+            }
+        });
+        
+        $('#add').click(function() {
+                if ((!(document.getElementById("loginAdd").value == '')) && (!(document.getElementById("passAdd").value == ''))){
+                var a = document.getElementById("loginAdd").value;
+                var b = document.getElementById("passAdd").value;
+                addUser(a,b);
+                document.getElementById("loginAdd").value = "";
+                document.getElementById("passAdd").value = "";
+                }
         });
         
     </script>    

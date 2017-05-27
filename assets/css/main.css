@@ -122,7 +122,7 @@ input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-i
     color: #DDD;
 }
 
-button, button#delete, button#add {
+button, button#delete, button#add, button#search {
     background-color: rgba(150,150,150,0.5); 
     border-color: white;
     color: white;
@@ -214,6 +214,13 @@ tbody[id="surveyList"] > tr {
     overflow-y: scroll;
 }
 
+.scrollbar-usersTable {
+    position: relative;
+    margin-top: 60px;
+    max-height: 450px;
+	overflow-y: scroll;
+}
+
 .ui-dialog-titlebar-close {
     visibility: hidden;
 }
@@ -259,4 +266,9 @@ tbody[id="surveyList"] > tr {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+#dataTable ul li
+{
+    	background-color: rgba(220,220,220,0.5);
 }
