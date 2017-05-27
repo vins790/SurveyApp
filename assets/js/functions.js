@@ -337,5 +337,90 @@ function getResault(){
     });
 };
 
+        function loadUsers(){
+            $.ajax({
+            url: "assets/php/users.php",
+            data: "",
+            dataType: "text",
+            success: function(data){
+                $("#users-table").empty;
+                var items = [];
+                $.each(JSON.parse(data), function(id, json){
+                    items.push("<tr id='" + json.Login +"'><td>#<span>" + json.Login +"</span></td></tr>")
+                })
+                $("#users-table").html(items);
+            },
+            error: function(){}
+            });
+        };
 
+        function searchUsers(){
+            
+            var log = $("#inputSearch").val();
+            
+            if(log!=""){
+            $.ajax({
+            type: "POST",
+            url: "assets/php/usersSearch.php",
+            data: "log="+log,
+            dataType: "text",
+            success: function(data){
+                $("#users-table").empty;
+                var items = [];
+                $.each(JSON.parse(data), function(id, json){
+                    items.push("<tr id='" + json.Login +"'><td>#<span>" + json.Login +"</span></td></tr>")
+                })
+                $("#users-table").html(items);
+            },
+            error: function(){}
+            });
+            }
+            else{
+                loadUsers();
+            }
+        };
+
+        function userInfo(u_id){
+            $.ajax({
+            type: "POST",
+            url: "assets/php/userInfo.php",
+            data: {userID : u_id},
+            dataType: "text",
+            success: function(data){
+                $("#userInfo").empty();
+                var items = []; 
+                $.each(JSON.parse(data), function(id, json) {  
+               items.push('<li class="list-group-item" tag="'+ u_id +'" id="userLogin">Login : <span>'+json.Login+'</span></li>'+
+                         '<li class="list-group-item" id="userPass">Haslo : <span>'+json.Haslo+'</span></li>');
+               $("#userInfo").html(items);
+                });
+                },
+            error: function(){}
+        });
+        };
+
+        function deleteUser(name){
+        $.ajax({
+            type: "POST",
+            url: "assets/php/userDelete.php",
+            data: {Uname: name},
+            dataType: "text",
+            success: function(data){
+                loadUsers()
+                confirmBox("Sukces","Użytkownik został usunięty!");
+            },
+            error: function(){}
+        });}
+
+        function addUser(login, pass){
+        $.ajax({
+            type: "POST",
+            url: "assets/php/userAdd.php",
+            data: {a : login, b : pass},
+            dataType: "text",
+            success: function(data){
+                confirmBox("Sukces","Użytkownik został dodany!");
+            },
+            error: function(){}
+        });}
 
