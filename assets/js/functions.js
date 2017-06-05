@@ -1,3 +1,43 @@
+$(document).ready(function () {
+   "use strict";
+    $("#submitButton").click(function(){
+        var username = $("#inputLogin").val(), password = $("#inputPass").val();
+		var output = false;
+        if ((username === "") || (password === "")) {
+			//console.log("empty input");
+            //$("#message").html("<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Please enter username and password</div>");
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "assets/php/checkLogin.php",
+                data: "myusername=" + username + "&mypassword=" + password,
+                dataType: 'JSON',
+                success: function (html) {
+                    //console.log(html.isExisting+" login.js");
+                    if (html.isExisting === true) {
+                        output = true;
+						if (html.type === "user"){
+							loadSurveyList("surveyList");
+							go("loginPanel", "surveySelectionPanel");
+						}else {
+							go("loginPanel", "adminPanel");
+						}	
+                    } else {
+						confirmBox("Błąd","Niepoprawne dane logowania.");
+                    }
+                document.getElementById("inputPass").value = "";
+                },
+                error: function(){
+                    confirmBox("Brak internetu","Nie można nawiązać połączenia z serwerem.");
+                },
+                complete: function(){
+                    return output;
+                }
+            });
+        }
+    });
+});
+
 function newQuestion(selector,n){
     if(n==1){$("#"+selector).empty();}
     $("#"+selector).append(
@@ -101,8 +141,7 @@ function addSurveyToDB(){
     var answersAmount = [];
     var questionAmount = $("#newQuestions tr:nth-last-child(2)").attr("id").substr(2);        //ilość pytań
      
-    $('div[class="container"]').css("display", "none");
-    $("body").append('<div class="loader" height: "auto" width: 400></div>');
+    
     
     var survey = [];
     survey[0] = [];
@@ -129,16 +168,25 @@ function addSurveyToDB(){
     var JSONdata = JSON.stringify(survey);
     $.ajax({
             type: "POST",
-            url: "assets/php/addSurvey.php",
+            url: "http://erowerek.pl/assets/php/addSurvey.php",
             data: {n:questionAmount , survey: JSONdata},
             dataType: "text",
+            beforeSend: function(){
+                $('div[class="container"]').css("display", "none");
+                $("body").append('<div class="loader" height: "auto" width: 400></div>');
+            },
             success: function(data){
                $('div[class="loader"]').remove();
                confirmBox("Sukces","Ankieta dodana pomyślnie!");
+               newQuestion("newQuestion",1);
+            },
+            error: function(){
+                $('div[class="loader"]').remove();
+                confirmBox("Brak internetu","Ankieta zostanie zapiasana w bazie po ponownym nawiązaniu połączenia.");
+                newQuestion("newQuestion",1);
             }
     });
 };
-
 
 function confirmBox(title, massage){
      $('div[class="container"]').css("display", "none");
@@ -167,12 +215,14 @@ function confirmBox(title, massage){
 function surveyManagementBox(id, title){
     $.ajax({
             type: "POST",
-            url: "assets/php/getDescription.php",
+            url: "http://erowerek.pl/assets/php/getDescription.php",
             data: {id:id},
             dataType: "text",
+            beforeSend: function(){
+                $("body").append('<div class="loader" height: "auto" width: 400></div>');
+            },
             success: function(data){
-                
-                $('div[class="container"]').css("display", "none");
+                $('div[class="loader"]').remove();
                 $("body").append(
                     '<div id="dialog" title="'+title+'">'+
                     '<p>'+JSON.parse(data).Opis+'</p></div>'
@@ -186,14 +236,16 @@ function surveyManagementBox(id, title){
                       width: 400,
                       buttons: {
                         "Usuń": function() {
-                          $('div[class="container"]').css("display", "none");
-                          $("body").append('<div class="loader" height: "auto" width: 400></div>');
                           $( this ).dialog( "close" );
                           $.ajax({
                             type: "POST",
-                            url: "assets/php/deleteSurvey.php",
+                            url: "http://erowerek.pl/assets/php/deleteSurvey.php",
                             data: {id:id},
                             dataType: "text",
+                            beforeSend: function(){
+                                $('div[class="container"]').css("display", "none");
+                                $("body").append('<div class="loader" height: "auto" width: 400></div>');
+                            },
                             success: function(data){
                                 $('div[class="loader"]').remove();
                                 loadSurveyList("managementList");
@@ -201,7 +253,8 @@ function surveyManagementBox(id, title){
                                 $('div[id="dialog"]').remove();
                             },
                             error: function(data){
-                                confirmBox("Błąd","Coś poszło nie tak!");
+                                $('div[class="loader"]').remove();
+                                confirmBox("Błąd","brak połączenia z internetem. Ankieta nie zostanie usunięta!");
                                 $('div[id="dialog"]').remove();
                             } 
                           });
@@ -214,21 +267,28 @@ function surveyManagementBox(id, title){
                       }
                     });
                 });
+            },
+            error: function(){
+                $('div[class="loader"]').remove();
+                confirmBox("Brak internetu","Nie można pobrać danych dotyczących ankiety.");
             }
     });
 }
 
 function loadSurveyList(divID){
 
-    $('div[class="container"]').css("display", "none");
-    $("body").append('<div class="loader" height: "auto" width: 400></div>');
-    
    $.ajax({
-            url: "assets/php/loadSurveyList.php",
+            url: "http://erowerek.pl/assets/php/loadSurveyList.php",
             data: "",
             dataType: "text",
-            success: function(data){
+            beforeSend: function(){
+                if( $('div[class="loader"]') ) $('div[class="loader"]').remove();
+                $('div[class="container"]').css("display", "none");
+                $("body").append('<div class="loader" height: "auto" width: 400></div>');
                 $("#"+divID).empty();
+            },
+            success: function(data){
+                
                 var items = [];
                 $.each(JSON.parse(data), function(id,value){
                     items.push("<tr id='listElem" + value.id + "'><td><span>" + value.Tytul + "</span><td></tr>");
@@ -236,6 +296,16 @@ function loadSurveyList(divID){
                 $("#"+divID).html(items);
                 $('div[class="loader"]').remove();
                 $('div[class="container"]').css("display", "block");
+            },
+            error: function(){
+                $('div[class="loader"]').remove();
+                $('div[class="container"]').css("display", "block");
+                confirmBox("Brak internetu",'Nie można załadować listy ankiet. Użyj przycisku "Odśwież Listę Ankiet", kiedy połączenie z siecią będzie dostępne. ');
+                $("#"+divID).html('<div class="col-xs-12 col-sm-12 col-md-12" id="refreshList" >Odśwież Listę Ankiet</div>');
+                $("#refreshList").click(function(){
+                    $("#refreshList").remove();
+                    loadSurveyList(divID);
+                });
             }
    });
 };
@@ -248,7 +318,7 @@ function getAnswers(questions, surveyID){
     $.each(questions, function(id,question){
         $.ajax({
             type: "POST",
-            url: "assets/php/getAnswers.php",
+            url: "http://erowerek.pl/assets/php/getAnswers.php",
             data: {id:question[0]},
             dataType: "text",
             success: function(data){
@@ -276,13 +346,14 @@ function getAnswers(questions, surveyID){
                     $('div[class="loader"]').remove();
                     $('div[class="container"]').css("display", "block");
                 }
+            },
+            error: function(){
+                confirmBox("Brak internetu","Nie można załadować ankiety. Ankieta zostanie załadowana, kiedy połączenie z internetem będzie dostępne.");
             }
         });
     });
     
 };
-
-
 
 function getQuestions(id){
     
@@ -292,7 +363,7 @@ function getQuestions(id){
     var questions= [];
     $.ajax({
             type: "POST",
-            url: "assets/php/getQuestions.php",
+            url: "http://erowerek.pl/assets/php/getQuestions.php",
             data: {id:id},
             dataType: "text",
             success: function(data){
@@ -301,7 +372,10 @@ function getQuestions(id){
                     questions[id] = [value.id, value.Pytanie];
                 });
                 getAnswers(questions, id);
-            }   
+            },
+            error: function(){
+                confirmBox("Brak internetu","Nie można załadować ankiety. Ankieta zostanie załadowana, kiedy połączenie z internetem będzie dostępne.");
+            }
     });
     
 };
@@ -328,11 +402,14 @@ function getResault(){
     var JSONdata = JSON.stringify(results);
     $.ajax({
             type: "POST",
-            url: "assets/php/sendResult.php",
+            url: "http://erowerek.pl/assets/php/sendResult.php",
             data: {results:JSONdata, questionAmount:questionAmount},
             dataType: "text",
             success: function(data){
                 confirmBox("Sukces","Odpowiedzi zapisane w bazie!");
+            },
+            error: function(){
+                confirmBox("Brak internetu","Odpowiedzi zostaną zapiasane w bazie po ponownym nawiązaniu połączenia.");
             }
     });
 };
@@ -350,7 +427,9 @@ function getResault(){
                 })
                 $("#users-table").html(items);
             },
-            error: function(){}
+            error: function(){
+                confirmBox("Brak internetu","Nie można załadować listy użytkowników. Lista zostanie załadowana, kiedy połączenie z internetem będzie dostępne.");
+            }
             });
         };
 
@@ -372,7 +451,9 @@ function getResault(){
                 })
                 $("#users-table").html(items);
             },
-            error: function(){}
+            error: function(){
+                confirmBox("Brak internetu","Nie można wyszukać użytkowników. Użytkownicy zostaną załadowani, kiedy połączenie z internetem będzie dostępne.");
+            }
             });
             }
             else{
@@ -395,7 +476,9 @@ function getResault(){
                $("#userInfo").html(items);
                 });
                 },
-            error: function(){}
+            error: function(){
+                confirmBox("Brak internetu","Nie można załadować danych użytkownika. Dane zostaną załadowane, kiedy połączenie z internetem będzie dostępne.");
+            }
         });
         };
 
@@ -409,7 +492,9 @@ function getResault(){
                 loadUsers()
                 confirmBox("Sukces","Użytkownik został usunięty!");
             },
-            error: function(){}
+            error: function(){
+                confirmBox("Brak internetu","Użytkownik zostanie usunięty z bazy po ponownym nawiązaniu połączenia.");
+            }
         });}
 
         function addUser(login, pass){
@@ -421,6 +506,111 @@ function getResault(){
             success: function(data){
                 confirmBox("Sukces","Użytkownik został dodany!");
             },
-            error: function(){}
+            error: function(){
+                confirmBox("Brak internetu","Użytkownik zostanie zapiasany w bazie po ponownym nawiązaniu połączenia.");
+            }
         });}
 
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function currentDiv(n) {
+        showDivs(slideIndex = n);
+        }
+
+        function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("chart");
+        var dots = document.getElementsByClassName("choose");
+        if (n > x.length) {slideIndex = 1}    
+        if (n < 1) {slideIndex = x.length}
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" b-grey", "");
+        }
+        x[slideIndex-1].style.display = "block";  
+        dots[slideIndex-1].className += " b-grey";
+        }   
+
+
+
+
+function getAnswers2(questions, surveyID){
+   
+    surveyPanelBubbles2(questions.length);
+    $("#VisualisationForm").empty();
+    var len = questions.length;
+    $.each(questions, function(id,question){
+        $.ajax({
+            type: "POST",
+            url: "assets/php/getAnswers.php",
+            data: {id:question[0]},
+            dataType: "text",
+            success: function(data){
+
+                var answers = [];
+                $.each(JSON.parse(data), function(valID,value){
+                    answers[valID] = [value.id, value.opis];
+                });
+                questions[id].push(answers);
+                var displayBlock = "block";
+                var displayNone = "none";
+                var newQuestion = 
+                    '<div id="q'+(id+1)+'" name="'+question[0]+'" style="display:'; 
+                    if(id == 0){newQuestion+=displayBlock; }
+                    else{ newQuestion+=displayNone; }
+                newQuestion += ';"><h3>Pytanie ' +(id+1)+ "</h3>" +
+                    "<span>" +question[1]+ "</span><br>";
+                    "<form>" +
+                $.each(question[2], function(ansID,ans){
+                    newQuestion+='<name="q'+(id+1)+'" value="'+ans[0]+'"/>' +ans[1]+ "<br>";
+                });
+                newQuestion+='</form></div>';
+                $("#VisualisationForm").append(newQuestion);
+                if(id == len-1){
+                    $('div[class="loader"]').remove();
+                    $('div[class="container"]').css("display", "block");
+                }
+            },
+            error: function(){
+                confirmBox("Brak internetu","Nie można załadować ankiety. Ankieta zostanie załadowana, kiedy połączenie z internetem będzie dostępne.");
+            }
+        });
+    });
+    
+};
+
+
+
+function getQuestions2(id){
+    
+    $('div[class="container"]').css("display", "none");
+    $("body").append('<div class="loader" height: "auto" width: 400></div>');
+    
+    var questions= [];
+    $.ajax({
+            type: "POST",
+            url: "assets/php/getQuestions.php",
+            data: {id:id},
+            dataType: "text",
+            success: function(data){
+                
+                $.each(JSON.parse(data), function(id,value){
+                    questions[id] = [value.id, value.Pytanie];
+                });
+                getAnswers2(questions, id);
+            },
+            error: function(){
+                confirmBox("Brak internetu","Nie można załadować ankiety. Ankieta zostanie załadowana, kiedy połączenie z internetem będzie dostępne.");
+            }   
+    });
+    
+};
+
+function surveyPanelBubbles2(questionAmount){
+    $("#QList").empty();
+    for(var i = 1 ; i<=questionAmount ; i++)
+    $("#QList").append("<tr id='spql"+i+"'><td><span class='fa-stack fa-sm'><i class='fa fa-circle fa-stack-2x' aria-hidden='true'></i><i class='fa fa-stack-1x'><strong>"+i+"</strong></i></span></td></tr>");
+}
